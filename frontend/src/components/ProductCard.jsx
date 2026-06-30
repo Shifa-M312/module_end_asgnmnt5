@@ -9,14 +9,22 @@ const ProductCard = ({ product }) => {
     <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col h-full">
       
       <div className="w-full h-48 bg-gray-50 flex items-center justify-center overflow-hidden border-b border-gray-100">
-  <img 
-    src={product.image || 'https://placehold.co'} 
-    alt={product.name} 
-    className="w-full h-full object-cover object-center"
-    onError={(e) => {
-      e.target.src = 'https://placehold.co';
-    }}
-  />
+        {product.image && product.image !== "https://placehold.co" ? (
+          <img 
+            src={product.image} 
+            alt={product.name} 
+            className="w-full h-full object-cover object-center"
+            onError={(e) => {
+              
+              e.target.onerror = null; 
+              e.target.src = `https://placehold.co{encodeURIComponent(product.name || 'Product')}`;
+            }}
+            />
+        ) : (
+          <div className="w-full h-full bg-gray-100 flex flex-col items-center justify-center text-gray-400 font-medium p-4 text-center">
+            <span>📷 No Image Available</span>
+          </div>
+        )}
       </div>
       
       <div className="p-4 flex flex-col flex-grow">
