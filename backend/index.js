@@ -17,8 +17,9 @@ connectDB();
 
 const allowedOrigins = [
   "http://localhost:5173", 
-  "https://vercel.app", 
-  "https://vercel.app" 
+  "https://module-end-asgnmnt5.vercel.app", 
+  "https://module-end-asgnmnt5-git-main-shifa-m312s-projects.vercel.app",
+  "https://module-end-asgnmnt5-3ui3c0m9g-shifa-m312s-projects.vercel.app"
 ];
 
 app.use(cors({
