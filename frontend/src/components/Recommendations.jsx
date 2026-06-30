@@ -21,8 +21,16 @@ const Recommendations = () => {
         {items.map(item => (
           <div key={item._id} className="bg-white p-4 rounded-lg shadow-sm border border-amber-100 flex items-center gap-4">
            
-            <div className="w-16 h-16 bg-amber-100 rounded flex-shrink-0 flex items-center justify-center text-amber-800 text-xs font-bold">
-               AI
+            <div  className="w-16 h-16 bg-gray-50 rounded flex-shrink-0 flex items-center justify-center overflow-hidden border border-gray-100">
+              <img 
+                src={item.image || `https://placehold.co`} 
+                alt={item.name} 
+                className="w-full h-full object-cover object-center"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = `https://placehold.co`;
+                }}
+              />
             </div>
             <div>
               <h4 className="font-bold text-sm text-gray-800">{item.name}</h4>
