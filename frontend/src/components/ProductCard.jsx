@@ -8,21 +8,19 @@ const ProductCard = ({ product }) => {
   return (
     <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col h-full">
       
-      <div className="w-full h-48 bg-gray-50 flex items-center justify-center overflow-hidden border-b border-gray-100">
-        {product.image && product.image !== "https://placehold.co" ? (
+      <div className="w-full h-48 bg-gray-50 flex items-center justify-center overflow-hidden border-b border-gray-100 relative">
+        {product.image && product.image.startsWith('https://') && product.image.includes('.') ? (
           <img 
             src={product.image} 
             alt={product.name} 
             className="w-full h-full object-cover object-center"
-            onError={(e) => {
-              
-              e.target.onerror = null; 
-              e.target.src = `https://placehold.co{encodeURIComponent(product.name || 'Product')}`;
-            }}
-            />
+          />
         ) : (
-          <div className="w-full h-full bg-gray-100 flex flex-col items-center justify-center text-gray-400 font-medium p-4 text-center">
-            <span>📷 No Image Available</span>
+          
+          <div className="w-full h-full bg-amber-50 flex flex-col items-center justify-center text-amber-900 p-4 text-center">
+            <span className="text-3xl mb-1"></span>
+            <span className="font-bold text-sm tracking-wide uppercase">{product.name}</span>
+            <span className="text-xs text-amber-700/70 mt-0.5">Image Ready</span>
           </div>
         )}
       </div>
