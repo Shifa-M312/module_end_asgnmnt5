@@ -11,14 +11,30 @@ const { errorHandler } = require('./middleware/errorHandler');
 
 const app = express();
 
-// 3. Connect to the Database
+
 connectDB();
 
-// 4. Middleware
+
+const allowedOrigins = [
+  "http://localhost:5173", 
+  "https://vercel.app", 
+  "https://vercel.app" 
+];
+
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: function (origin, callback) {
+      
+      if (!origin) return callback(null, true);
+      
+      if (allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error('Blocked by CORS policy'));
+      }
+    },
     credentials: true
 })); 
+
 app.use(express.json()); 
 app.use('/api/products', productRoutes);
 app.use('/api/auth', authRoutes);
@@ -26,16 +42,18 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/profile', userProfileRoutes);
 app.use('/api/analytics', analyticsRoutes);
 
-// 5. Basic Test Route
+
 app.get('/', (req, res) => {
   res.send('Server is alive and connected to MongoDB!');
 });
 
-// 6. Start the Server
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`-----------------------------------------`);
   console.log(`🚀 Server started on http://localhost:${PORT}`);
   console.log(`-----------------------------------------`);
 });
+
+
 app.use(errorHandler);
