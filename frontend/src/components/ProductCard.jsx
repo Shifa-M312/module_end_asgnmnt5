@@ -8,8 +8,15 @@ const ProductCard = ({ product }) => {
   return (
     <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col h-full">
       
-      <div className="w-full h-48 bg-amber-100 flex items-center justify-center text-amber-900 font-bold text-center p-4">
-        {product.name}
+      <div className="w-full h-48 bg-gray-50 flex items-center justify-center overflow-hidden border-b border-gray-100">
+  <img 
+    src={product.image || 'https://placehold.co'} 
+    alt={product.name} 
+    className="w-full h-full object-cover object-center"
+    onError={(e) => {
+      e.target.src = 'https://placehold.co';
+    }}
+  />
       </div>
       
       <div className="p-4 flex flex-col flex-grow">
